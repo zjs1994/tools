@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>windows桌面永不锁屏</title>
+    </head>
+    <body bgcolor="#F0FFFF" onload="startTime()">
+    	<h1><center>windows桌面永不锁屏工具</center></h1>
+    	<h4 style="text-align: center;">             --请在IE浏览器运行</h4>
+
+    	当前时间：<font color="red"><span id="nowDateTimeSpan" style="font-size: 30;"></span></font> 
+    	</br>
+    	点击次数：<font color="red"><span id="fre" style="font-size: 30;"></span></font>
+    	</br>
+    	点击周期：<font color="red"><span id="time" style="font-size: 30;"></span></font> min
+    	<div><h2 style="text-align: right;color: red">作者：周吉山</h2></div>
+    	<div class="note">
+    		<ul>
+    			<li style="color: red;size: 30">操作说明:</li></br>
+    			<li>使用<strong>IE浏览器运行</strong>该文件</li></br>
+    			<li>浏览器下方弹出提示框，提示Internet Explorer已阻止此网页运行脚本或ActiveX控件，点击<strong>允许阻止的内容</strong></li></br>
+    			<li>等待几十秒钟......</li></br>
+    			<li>浏览器弹框提示“此页上的ActiveX控件和本页上的其他部分的交互可能不安全。你允许这种交互吗？”此时点击<strong>    是</strong></li></br>
+    			<li>恭喜你已经完成永不锁屏操作！</li></br>
+    			<li>可将该网页<strong>最小化运行</strong>，不影响其他程序何永不锁屏功能的正常使用</li>
+    		</ul>
+    	</div>
+
+        <script type="text/javascript">
+            function PressKey(){
+                var objWs = new ActiveXObject("Wscript.Shell");
+                objWs.SendKeys("{SCROLLLOCK}");
+            }
+            var time = 300000;  //定义按键的间隔时间
+            setInterval("PressKey()",time);//按下按键的间隔时间。
+            var fre = 0;    //程序点击次数
+            function startTime()
+            {   
+                var today=new Date();//定义日期对象   
+                var yyyy = today.getFullYear();//通过日期对象的getFullYear()方法返回年    
+                var MM = today.getMonth()+1;//通过日期对象的getMonth()方法返回年    
+                var dd = today.getDate();//通过日期对象的getDate()方法返回年     
+                var hh=today.getHours();//通过日期对象的getHours方法返回小时   
+                var mm=today.getMinutes();//通过日期对象的getMinutes方法返回分钟   
+                var ss=today.getSeconds();//通过日期对象的getSeconds方法返回秒
+                var ms=today.getMilliseconds()  
+                
+                // 如果分钟或小时的值小于10，则在其值前加0，比如如果时间是下午3点20分9秒的话，则显示15：20：09   
+                MM=checkTime(MM);
+                dd=checkTime(dd);
+                mm=checkTime(mm);   
+                ss=checkTime(ss);
+                t = Math.round(ms/100);
+                ms=checkTime(t);
+                fre += 1; //每执行一次点击次数加1
+
+                var day; //用于保存星期（getDay()方法得到星期编号）
+                if(today.getDay()==0)   day   =   "星期日 " 
+                if(today.getDay()==1)   day   =   "星期一 " 
+                if(today.getDay()==2)   day   =   "星期二 " 
+                if(today.getDay()==3)   day   =   "星期三 " 
+                if(today.getDay()==4)   day   =   "星期四 " 
+                if(today.getDay()==5)   day   =   "星期五 " 
+                if(today.getDay()==6)   day   =   "星期六 " 
+                document.getElementById('nowDateTimeSpan').innerHTML=yyyy+"-"+MM +"-"+ dd +" " + hh+":"+mm+":"+ss+":"+ms+"     " + day;
+                document.getElementById('fre').innerHTML=Math.round(fre*100/time);
+                document.getElementById('time').innerHTML = time/60000;
+
+                setTimeout('startTime()',100);//每0.1秒重新加载startTime()方法
+                
+            }   
+
+            function checkTime(i)   
+            {   
+                if (i<10){
+                    i="0" + i;
+                }   
+                  return i;
+            }  
+        </script>
+    </body>
+</html>
